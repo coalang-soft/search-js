@@ -1,0 +1,40 @@
+<body>
+    <input id="field" type="text" onchange="search()"/>
+    <ul id="l">
+        <li>Hello</li>
+        <li>Welcome</li>
+        <li>Bye</li>
+        <li>Night</li>
+        <li>Day</li>
+        <li>Do</li>
+        <li>While</li>
+        <li>For</li>
+    </ul>
+</body>
+
+<script src="https://rawgit.com/coalang-soft/search-js/master/search.js"></script>
+<script>
+    var se = new SearchEngine();
+    
+    var list = document.getElementById("l");
+    
+    for(var i = 0; i < list.children.length; i++){
+        se.add(list.children[i].textContent, list.children[i]);
+    }
+    
+    function search(){
+        act(se.query(document.getElementById("field").value.split("\\s+")));
+    }
+    
+    function act(result){
+        while(list.children.length > 0){
+            list.children[0].remove();
+        }
+        for(var i = 0; i < result.length; i++){
+            var r = result[i].getValue();
+            list.appendChild(r);
+        }
+    }
+    
+    console.log(se);
+</script>
